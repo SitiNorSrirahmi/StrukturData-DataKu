@@ -14,6 +14,61 @@ struct mahasiswa {
 mahasiswa sikc[30];
 int pos = -1;
 
+void updateData() {
+    system("cls");
+    if (pos == -1) {
+        cout << "Tidak ada data untuk diupdate." << endl;
+        cout << "\nTekan Enter untuk kembali ke menu...";
+        cin.get();
+        return;
+    }
+
+    string cariNIM;
+    cout << "Masukkan NIM mahasiswa yang ingin diupdate: ";
+    getline(cin, cariNIM);
+
+    bool ditemukan = false;
+    for (int i = 0; i <= pos; i++) {
+        if (sikc[i].nim == cariNIM) {
+            ditemukan = true;
+            cout << "\nData ditemukan!" << endl;
+            cout << left
+                 << setw(15) << "NIM"
+                 << setw(20) << "Nama"
+                 << setw(30) << "Alamat"
+                 << setw(10) << "IPK" << endl;
+            cout << string(75, '-') << endl;
+            cout << left
+                 << setw(15) << sikc[i].nim
+                 << setw(20) << sikc[i].nama
+                 << setw(30) << sikc[i].alamat
+                 << setw(10) << sikc[i].ipk
+                 << endl;
+
+            cout << "\nMasukkan data baru:\n";
+            cout << "Masukkan Nama: ";
+            getline(cin, sikc[i].nama);
+            cout << "Masukkan Alamat: ";
+            getline(cin, sikc[i].alamat);
+            cout << "Masukkan IPK: ";
+            cin >> sikc[i].ipk;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            cout << "\nData berhasil diperbarui!" << endl;
+            cout << "\nTekan Enter untuk kembali ke menu...";
+            cin.get();
+            break;
+        }
+    }
+
+    if (!ditemukan) {
+        cout << "\nData dengan NIM \"" << cariNIM << "\" tidak ditemukan." << endl;
+        cout << "\nTekan Enter untuk kembali ke menu...";
+        cin.get();
+    }
+}
+
+
 void tampilkanSemuaData() {
     system("cls");
     if (pos == -1) {
@@ -108,7 +163,7 @@ do
     /* code */ 
     break;  
    case '3':
-    mPertama("ke- tiga");
+    updateData();
     /* code */
     break;  
    case '4':
