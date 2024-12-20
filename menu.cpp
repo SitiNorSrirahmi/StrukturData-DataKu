@@ -1,6 +1,7 @@
 #include <iostream>
 #include <conio.h>
 #include <string>
+#include <iomanip>
 using namespace std;
 
 struct mahasiswa {
@@ -18,13 +19,27 @@ void tampilkanSemuaData() {
     if (pos == -1) {
         cout << "Tidak ada data untuk ditampilkan." << endl;
     } else {
+        // Header tabel
+        cout << left 
+             << setw(5)  << "No" 
+             << setw(15) << "NIM" 
+             << setw(20) << "Nama" 
+             << setw(30) << "Alamat" 
+             << setw(10) << "IPK" << endl;
+        cout << string(80, '-') << endl; // Garis pemisah
+
+        // Isi tabel
         for (int i = 0; i <= pos; i++) {
-            cout << i + 1 << ". " << sikc[i].nim << " , " 
-                 << sikc[i].nama << " , " 
-                 << sikc[i].alamat << " , " 
-                 << sikc[i].ipk << endl;
+            cout << left 
+                 << setw(5)  << i + 1 
+                 << setw(15) << sikc[i].nim 
+                 << setw(20) << sikc[i].nama 
+                 << setw(30) << sikc[i].alamat 
+                 << setw(10) << fixed << setprecision(2) << sikc[i].ipk 
+                 << endl;
         }
     }
+    cout << "\nTekan Enter untuk kembali ";
     getch();
 }
 
