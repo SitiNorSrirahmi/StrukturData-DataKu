@@ -32,6 +32,7 @@ void updateData() {
         if (sikc[i].nim == cariNIM) {
             ditemukan = true;
             cout << "\nData ditemukan!" << endl;
+            cout << "-----------------\n";
             cout << left
                  << setw(15) << "NIM"
                  << setw(20) << "Nama"
