@@ -139,11 +139,77 @@ cout<<"Masukan angka :";
 
 }
 
-void mPertama(string pesan){
-system("cls");
-cout<<"hallo saya menu "<<pesan;
-getch();
+void hapusData() {
+    system("cls");
+    if (pos == -1) {
+        cout << "Tidak ada data untuk dihapus." << endl;
+        cout << "\nTekan Enter untuk kembali ke menu...";
+        cin.get();
+        return;
+    }
+
+    // Menampilkan semua data
+    cout << "Data Mahasiswa Saat Ini:" << endl;
+    cout << left
+         << setw(5)  << "No" 
+         << setw(15) << "NIM" 
+         << setw(20) << "Nama" 
+         << setw(30) << "Alamat" 
+         << setw(10) << "IPK" << endl;
+    cout << string(80, '-') << endl;
+
+    for (int i = 0; i <= pos; i++) {
+        cout << left
+             << setw(5)  << i + 1
+             << setw(15) << sikc[i].nim
+             << setw(20) << sikc[i].nama
+             << setw(30) << sikc[i].alamat
+             << setw(10) << fixed << setprecision(2) << sikc[i].ipk
+             << endl;
+    }
+
+    // Meminta NIM untuk data yang akan dihapus
+    string cariNIM;
+    cout << "\nMasukkan NIM mahasiswa yang ingin dihapus: ";
+    getline(cin, cariNIM);
+
+    bool ditemukan = false;
+    for (int i = 0; i <= pos; i++) {
+        if (sikc[i].nim == cariNIM) {
+            ditemukan = true;
+
+            // Konfirmasi penghapusan
+            char konfirmasi;
+            cout << "\nData ditemukan!" << endl;
+            cout << "Apakah Anda yakin ingin menghapus data ini? (y/n): ";
+            cin >> konfirmasi;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            if (konfirmasi == 'y' || konfirmasi == 'Y') {
+                // Menghapus data dengan menggeser elemen-elemen di array
+                for (int j = i; j < pos; j++) {
+                    sikc[j] = sikc[j + 1];
+                }
+                pos--;
+
+                cout << "\nData berhasil dihapus!" << endl;
+            } else {
+                cout << "\nPenghapusan dibatalkan." << endl;
+            }
+
+            cout << "\nTekan Enter untuk kembali ke menu...";
+            cin.get();
+            return;
+        }
+    }
+
+    if (!ditemukan) {
+        cout << "\nData dengan NIM \"" << cariNIM << "\" tidak ditemukan." << endl;
+        cout << "\nTekan Enter untuk kembali ke menu...";
+        cin.get();
+    }
 }
+
 
 
 int main() {
@@ -167,7 +233,7 @@ do
     /* code */
     break;  
    case '4':
-    mPertama("ke- empat");
+    hapusData();
     /* code */
     break;  
   case '5':
